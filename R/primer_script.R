@@ -6,7 +6,7 @@ library(datos)
 
 # Como pedir ayuda
 
-?datos
+?datosewq
 
 aerolineas %>% view()
 
@@ -61,5 +61,5 @@ vuelos_461 %>% glimpse()
 vuelos_461 %>% 
   count(nombre_origen, nombre_destino)
 
-
+#NUEVO COMENTARIO
 
