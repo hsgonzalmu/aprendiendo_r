@@ -3,6 +3,7 @@
 library(tidyverse)
 library(datasets)
 library(datos)
+library(lubridate)
 
 # Como pedir ayuda
 
@@ -62,4 +63,65 @@ vuelos_461 %>%
   count(nombre_origen, nombre_destino)
 
 #NUEVO COMENTARIO
+
+
+
+
+
+vuelos %>% glimpse()
+
+
+vuelos %>% 
+  filter(horario_salida > 500, horario_salida < 1700) %>% 
+  count(horario_salida) %>% 
+  ggplot(aes(x = horario_salida, y = n)) +
+  geom_line() + 
+  geom_smooth(alpha = 4)
+
+
+vuelos %>% 
+  mutate(
+    fecha_salida = paste0(anio, "-", mes, "-", dia),
+    fecha_salida = ymd(fecha_salida)
+  ) %>% 
+  count(fecha_salida) %>% 
+  ggplot(aes(fecha_salida, n)) +
+  geom_line()
+
+
+vuelos %>% 
+  mutate(
+    fecha_salida = paste0(anio, "-", mes, "-", dia),
+    fecha_salida = ymd(fecha_salida),
+    mes_salida = format(fecha_salida, "%Y%m") 
+  ) %>% 
+  count(mes_salida) %>% 
+  ggplot(aes(mes_salida, n)) +
+  geom_col()
+
+vuelos %>% 
+  filter(destino == "DCA") %>% 
+  mutate(
+    fecha_salida = paste0(anio, "-", mes, "-", dia),
+    fecha_salida = ymd(fecha_salida),
+    mes_salida = format(fecha_salida, "%Y%m") 
+  ) %>% 
+  count(fecha_salida) %>% 
+  ggplot(aes(fecha_salida, n)) +
+  geom_point()
+
+vuelos %>% 
+  filter(destino == "DCA") %>% 
+  mutate(
+    fecha_salida = paste0(anio, "-", mes, "-", dia),
+    fecha_salida = ymd(fecha_salida),
+    mes_salida = format(fecha_salida, "%Y%m") 
+  ) %>% 
+  count(mes_salida) %>% 
+  ggplot(aes(mes_salida, n)) +
+  geom_col()
+
+
+
+
 
